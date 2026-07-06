@@ -57,8 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Simulate network request
             setTimeout(() => {
-                // Redirect to the dashboard
-                window.location.href = '../MainDash/Main.html';
+                // Redirect to the appropriate dashboard based on credentials
+                if (usernameInput.value.trim() === 'admin' && passwordInput.value === 'admin123') {
+                    window.location.href = '../AdminDash/AdminMain.html';
+                } else {
+                    window.location.href = '../MainDash/Main.html';
+                }
             }, 1500);
         });
     }

@@ -121,9 +121,6 @@ body {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-.logout {
-    color: #FCA5A5; /* Soft red for logout */
-}
 .logout:hover {
     background-color: rgba(239, 68, 68, 0.1);
     color: #F87171;
@@ -406,4 +403,11 @@ body {
         padding: 0;
         flex-grow: 0;
     }
+}
+
+.logo-letter-img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }

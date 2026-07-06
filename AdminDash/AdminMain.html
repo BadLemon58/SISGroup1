@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSU - Admin Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Boxicons for Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="AdminMain.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../SchoolLogo.png" alt="JSU Logo" onerror="this.src='https://ui-avatars.com/api/?name=JSU&background=0D8ABC&color=fff'">
+                    <h2>JSU Admin</h2>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li class="active" data-target="students-section">
+                    <a href="#">
+                        <i class='bx bx-user'></i>
+                        <span class="link-name">Students</span>
+                    </a>
+                </li>
+                <li data-target="enrollment-section">
+                    <a href="#">
+                        <i class='bx bx-user-plus'></i>
+                        <span class="link-name">Enrollment</span>
+                        <span class="badge" id="pendingBadge">0</span>
+                    </a>
+                </li>
+                <li data-target="courses-section">
+                    <a href="#">
+                        <i class='bx bx-book-open'></i>
+                        <span class="link-name">Courses</span>
+                    </a>
+                </li>
+                <li class="logout-link">
+                    <a href="../LogIn/Login.Html">
+                        <i class='bx bx-log-out'></i>
+                        <span class="link-name">Log out</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <div class="search-box">
+                        <i class='bx bx-search'></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="profile-details">
+                        <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="Admin Profile">
+                        <span class="admin-name">Administrator</span>
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                
+                <!-- Students Section -->
+                <section id="students-section" class="dashboard-section active-section">
+                    <div class="section-header">
+                        <div>
+                            <h2>Student Management</h2>
+                            <p class="section-desc">View, edit, and manage enrolled students.</p>
+                        </div>
+                        <button class="btn-primary" id="addStudentBtn">
+                            <i class='bx bx-plus'></i> Add Student
+                        </button>
+                    </div>
+                    <div class="card table-card">
+                        <table class="data-table" id="studentsTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Course</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rendered via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Enrollment Section -->
+                <section id="enrollment-section" class="dashboard-section">
+                    <div class="section-header">
+                        <div>
+                            <h2>Pending Enrollments</h2>
+                            <p class="section-desc">Review and accept student applications.</p>
+                        </div>
+                    </div>
+                    <div class="enrollment-list" id="enrollmentList">
+                        <!-- Rendered via JS -->
+                    </div>
+                </section>
+
+                <!-- Courses Section -->
+                <section id="courses-section" class="dashboard-section">
+                    <div class="section-header">
+                        <div>
+                            <h2>Course Schedule</h2>
+                            <p class="section-desc">Manage classes and their time schedules.</p>
+                        </div>
+                        <button class="btn-primary" id="addCourseBtn">
+                            <i class='bx bx-plus'></i> Create Course
+                        </button>
+                    </div>
+                    <div class="courses-grid" id="coursesGrid">
+                        <!-- Rendered via JS -->
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add/Edit Student Modal -->
+    <div class="modal-overlay" id="studentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="studentModalTitle">Add New Student</h3>
+                <i class='bx bx-x close-modal' data-modal="studentModal"></i>
+            </div>
+            <div class="modal-body">
+                <form id="studentForm">
+                    <input type="hidden" id="studentId">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="studentName" required placeholder="e.g. John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="studentEmail" required placeholder="e.g. john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Course / Program</label>
+                        <input type="text" id="studentCourse" required placeholder="e.g. BS Computer Science">
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary close-modal-btn" data-modal="studentModal">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Student</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Course Modal -->
+    <div class="modal-overlay" id="courseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="courseModalTitle">Create New Course</h3>
+                <i class='bx bx-x close-modal' data-modal="courseModal"></i>
+            </div>
+            <div class="modal-body">
+                <form id="courseForm">
+                    <input type="hidden" id="courseId">
+                    <div class="form-group">
+                        <label>Course Name</label>
+                        <input type="text" id="courseName" required placeholder="e.g., Intro to Computer Science">
+                    </div>
+                    <div class="form-group">
+                        <label>Instructor</label>
+                        <input type="text" id="courseInstructor" required placeholder="e.g. Dr. Smith">
+                    </div>
+                    <div class="form-group">
+                        <label>Capacity</label>
+                        <input type="number" id="courseCapacity" required min="1" placeholder="e.g. 30">
+                    </div>
+                    <div class="form-group">
+                        <label>Schedule Days</label>
+                        <div class="days-selector" id="daysSelector">
+                            <div class="day-btn" data-day="Mon">M</div>
+                            <div class="day-btn" data-day="Tue">T</div>
+                            <div class="day-btn" data-day="Wed">W</div>
+                            <div class="day-btn" data-day="Thu">Th</div>
+                            <div class="day-btn" data-day="Fri">F</div>
+                            <div class="day-btn" data-day="Sat">S</div>
+                        </div>
+                        <input type="hidden" id="courseDays">
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <div class="time-inputs">
+                            <input type="time" id="courseStartTime" required>
+                            <span>to</span>
+                            <input type="time" id="courseEndTime" required>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary close-modal-btn" data-modal="courseModal">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Course</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="AdminMain.js"></script>
+</body>
+</html>
