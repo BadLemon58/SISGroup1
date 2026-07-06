@@ -1,0 +1,113 @@
+/* Grades page table styling to resemble provided screenshot */
+:root {
+    --header-blue: #009fe8;
+    --header-blue-dark: #0287c8;
+    --muted: #64748b;
+    --table-border: #eef2f6;
+}
+
+.table-wrapper {
+    overflow: hidden;
+}
+
+.table-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.grades-table {
+    width: 1400px;
+    min-width: 1000px;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+}
+
+.grades-table thead th {
+    background: var(--header-blue);
+    color: white;
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    white-space: nowrap;
+}
+
+.grades-table thead th:last-child {
+    border-right: none;
+}
+
+.grades-table tbody td {
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--table-border);
+    color: #0f172a;
+    vertical-align: top;
+}
+
+.grades-table tbody tr td:first-child {
+    width: 110px;
+}
+
+.grades-table tbody tr td:nth-child(2) {
+    width: 360px;
+}
+
+.grades-table tbody tr td.center {
+    text-align: center;
+}
+
+.grades-table tbody tr:hover {
+    background: #fbfdff;
+}
+
+.sticky-col {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    z-index: 4;
+    background: white;
+}
+
+.sticky-col+.sticky-col {
+    left: 120px;
+}
+
+/* Small scrollbar visual cleanup */
+.table-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 8px;
+}
+
+/* Notes below the grade table */
+.grade-notes-card {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.grade-notes-title {
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+}
+
+.grade-note {
+    font-size: 0.95rem;
+    color: #334155;
+    margin-bottom: 0.45rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .grades-table {
+        width: 1000px;
+        font-size: 13px;
+    }
+}

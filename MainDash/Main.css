@@ -132,6 +132,7 @@ body {
     flex-direction: column;
     height: 100vh;
     background-color: var(--bg-light);
+    min-width: 0;
 }
 
 .feed-header {
