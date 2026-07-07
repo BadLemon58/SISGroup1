@@ -1,0 +1,92 @@
+/* Schedule-Specific Styles */
+
+.schedule-container {
+    width: 100%;
+}
+
+.schedule-status {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.status-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.status-badge.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.schedule-table thead {
+    background-color: #0078D4;
+    color: white;
+}
+
+.schedule-table thead th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #0066b3;
+}
+
+.schedule-table tbody td {
+    padding: 14px 15px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+}
+
+.schedule-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.schedule-table tbody tr:hover {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.schedule-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.schedule-table tbody tr:nth-child(even):hover {
+    background-color: #f0f0f0;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .schedule-table thead th,
+    .schedule-table tbody td {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .schedule-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
