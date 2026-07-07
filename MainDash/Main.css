@@ -270,10 +270,32 @@ body {
 
 /* Profile Card */
 .profile-card {
+    position: relative;
     align-items: center;
     text-align: center;
     background: linear-gradient(to bottom, var(--secondary-navy) 40%, var(--white) 40%);
     padding-top: 2rem;
+}
+
+.edit-profile-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-profile-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
 }
 
 .profile-avatar {

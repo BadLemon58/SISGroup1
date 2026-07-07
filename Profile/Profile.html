@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSU - Events</title>
+    <title>JSU - Edit Profile</title>
     <!-- Use Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,11 +12,11 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../MainDash/Main.css">
-    <link rel="stylesheet" href="Events.css">
+    <link rel="stylesheet" href="Profile.css">
 </head>
 
 <body>
-    <div class="dashboard-layout">
+    <div class="dashboard-layout profile-layout">
 
         <!-- Left Panel: Sidebar -->
         <aside class="sidebar">
@@ -68,7 +68,7 @@
                     </svg>
                     Schedule
                 </a>
-                <a href="../Event/Events.html" class="nav-item active">
+                <a href="../Event/Events.html" class="nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -93,86 +93,65 @@
             </div>
         </aside>
 
-        <!-- Middle Panel: Main Content / Calendar -->
-        <main class="feed-content">
+        <!-- Middle Panel: Main Content / Edit Profile -->
+        <main class="feed-content full-width">
             <header class="feed-header">
-                <h2>Event Calendar</h2>
+                <h2>Edit Profile</h2>
             </header>
 
-            <div class="feed-scrollable calendar-page">
-                <div class="calendar-container">
-                    <div class="calendar-header">
-                        <button id="prevMonth" class="btn-icon">&lt;</button>
-                        <h3 id="monthYear"></h3>
-                        <button id="nextMonth" class="btn-icon">&gt;</button>
-                    </div>
-                    <div class="calendar-grid">
-                        <div class="day-name">Sun</div>
-                        <div class="day-name">Mon</div>
-                        <div class="day-name">Tue</div>
-                        <div class="day-name">Wed</div>
-                        <div class="day-name">Thu</div>
-                        <div class="day-name">Fri</div>
-                        <div class="day-name">Sat</div>
-                    </div>
-                    <div class="calendar-days" id="calendarDays">
-                        <!-- Days injected via JS -->
-                    </div>
-                </div>
-                
-                <div class="event-details-panel" id="eventDetailsPanel">
-                    <h3>Events on <span id="selectedDateText"></span></h3>
-                    <div id="eventList">
-                        <p class="no-events">Select a date to see events.</p>
-                    </div>
+            <div class="feed-scrollable profile-page">
+                <div class="profile-form-container">
+                    <form id="profileForm">
+                        
+                        <!-- Avatar Section -->
+                        <div class="profile-avatar-edit">
+                            <div class="avatar-circle">
+                                <span id="avatarInitials">SN</span>
+                            </div>
+                            <p class="helper-text">Avatar is automatically generated from your name.</p>
+                        </div>
+
+                        <!-- Form Grid -->
+                        <div class="form-grid">
+                            
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" name="fullName" value="Student Name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="studentId">Student ID</label>
+                                <input type="text" id="studentId" name="studentId" value="2023-0145-XX" readonly class="readonly-input" title="Student ID cannot be changed">
+                            </div>
+
+                            <div class="form-group full-span">
+                                <label for="course">Course & Year</label>
+                                <input type="text" id="course" name="course" value="BS Information Technology - 3rd Year" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" value="student@jsu.edu.ph" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Contact Number</label>
+                                <input type="tel" id="phone" name="phone" value="09123456789" required>
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </main>
-
-        <!-- Right Panel: Profile & Info -->
-        <aside class="right-panel">
-            <div class="right-panel-scrollable">
-
-                <!-- Profile Section -->
-                <div class="info-card profile-card">
-                    <a href="../Profile/Profile.html" class="edit-profile-btn" title="Edit Profile">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 20h9"></path>
-                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                        </svg>
-                    </a>
-                    <div class="profile-avatar">
-                        <span>SN</span>
-                    </div>
-                    <h2 class="profile-name">Student Name</h2>
-                    <p class="profile-id">ID: 2023-0145-XX</p>
-                    <p class="profile-course">BS Information Technology - 3rd Year</p>
-                </div>
-
-                <!-- School Info Section -->
-                <div class="info-card school-info-card">
-                    <div class="school-brand-header">
-                        <h3>Upcoming Major Events</h3>
-                    </div>
-
-                    <div class="info-section">
-                        <h4>SIDLAK (Intramurals)</h4>
-                        <p>August 15 - 20, 2026. Join us for a week of sports and camaraderie!</p>
-                    </div>
-
-                    <div class="info-section">
-                        <h4>Midterm Exams</h4>
-                        <p>September 10 - 14, 2026. Prepare well and good luck!</p>
-                    </div>
-                </div>
-
-            </div>
-        </aside>
-
     </div>
 
-    <script src="Events.js"></script>
+    <script src="Profile.js"></script>
 </body>
 
 </html>
