@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'C-102', name: 'Data Structures', instructor: 'Prof. Ada Lovelace', capacity: 25, days: 'Tue/Thu', startTime: '11:00', endTime: '13:00' }
     ];
 
+    let studentCurrentPage = 1;
+    const studentRowsPerPage = 5;
+
     // --- DOM Elements ---
     const navLinks = document.querySelectorAll('.nav-links li:not(.logout-link)');
     const dashboardSections = document.querySelectorAll('.dashboard-section');
@@ -99,9 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
                               .map(btn => btn.getAttribute('data-day'));
         document.getElementById('courseDays').value = selected.join('/');
     }
-
-    let studentCurrentPage = 1;
-    const studentRowsPerPage = 5;
 
     // --- Render Functions ---
     function renderStudents() {
