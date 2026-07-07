@@ -100,15 +100,34 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('courseDays').value = selected.join('/');
     }
 
+    let studentCurrentPage = 1;
+    const studentRowsPerPage = 5;
+
     // --- Render Functions ---
     function renderStudents() {
         studentsTableBody.innerHTML = '';
+        const tableContainer = document.querySelector('.table-card');
+        
+        // Remove existing pagination if any
+        const existingPagination = tableContainer.querySelector('.pagination-controls');
+        if (existingPagination) {
+            existingPagination.remove();
+        }
+
         if (students.length === 0) {
-            studentsTableBody.innerHTML = `<tr><td colspan="5" class="empty-state">No students found.</td></tr>`;
+            studentsTableBody.innerHTML = `<tr class="table-empty-state"><td colspan="5">No students found.</td></tr>`;
             return;
         }
 
-        students.forEach(student => {
+        const totalPages = Math.ceil(students.length / studentRowsPerPage);
+        if (studentCurrentPage > totalPages) studentCurrentPage = totalPages;
+        if (studentCurrentPage < 1) studentCurrentPage = 1;
+
+        const startIndex = (studentCurrentPage - 1) * studentRowsPerPage;
+        const endIndex = startIndex + studentRowsPerPage;
+        const paginatedStudents = students.slice(startIndex, endIndex);
+
+        paginatedStudents.forEach(student => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>${student.id}</td>
@@ -122,6 +141,32 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             studentsTableBody.appendChild(tr);
         });
+
+        if (totalPages > 1) {
+            const paginationContainer = document.createElement('div');
+            paginationContainer.className = 'pagination-controls';
+            paginationContainer.innerHTML = `
+                <button class="prev-btn" ${studentCurrentPage === 1 ? 'disabled' : ''}>Previous</button>
+                <span class="pagination-info">Page ${studentCurrentPage} of ${totalPages}</span>
+                <button class="next-btn" ${studentCurrentPage === totalPages ? 'disabled' : ''}>Next</button>
+            `;
+            
+            tableContainer.appendChild(paginationContainer);
+
+            paginationContainer.querySelector('.prev-btn').addEventListener('click', () => {
+                if (studentCurrentPage > 1) {
+                    studentCurrentPage--;
+                    renderStudents();
+                }
+            });
+
+            paginationContainer.querySelector('.next-btn').addEventListener('click', () => {
+                if (studentCurrentPage < totalPages) {
+                    studentCurrentPage++;
+                    renderStudents();
+                }
+            });
+        }
 
         // Attach action listeners
         document.querySelectorAll('.edit-student-btn').forEach(btn => {

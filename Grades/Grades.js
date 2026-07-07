@@ -88,14 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!header) return;
         const btn = document.createElement('button');
         btn.textContent = 'Export CSV';
-        btn.className = 'action-btn';
+        btn.className = 'btn-primary';
         btn.style.marginLeft = '12px';
         header.appendChild(btn);
 
         btn.addEventListener('click', () => {
             const rows = document.querySelectorAll('.grades-table tbody tr');
             const csv = [
-                ['Code', 'Descriptive Title', 'Units', 'Schedule', 'Instructor', 'Program', 'Units', 'Section', 'Average1', 'Equivalent1', 'Average2', 'Equivalent2'].join(',')
+                ['Code', 'Descriptive Title', 'Units', 'Schedule', 'Instructor', 'Program', 'Section', 'Average1', 'Equivalent1', 'Average2', 'Equivalent2'].join(',')
             ];
             rows.forEach(tr => {
                 const cols = Array.from(tr.querySelectorAll('td')).map(td => '"' + td.textContent.replace(/"/g, '""').trim() + '"');
@@ -138,5 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             avatarEl.textContent = initials;
         }
+    }
+
+    if (typeof window.setupTablePagination === 'function') {
+        window.setupTablePagination('.grades-table', 5);
     }
 });

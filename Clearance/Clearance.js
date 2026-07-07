@@ -57,9 +57,18 @@ function searchClearance(searchTerm) {
     const term = searchTerm.toLowerCase();
 
     rows.forEach(row => {
+        if (row.classList.contains('table-empty-state')) return;
         const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(term) ? '' : 'none';
+        if (text.includes(term)) {
+            row.removeAttribute('data-filtered-out');
+        } else {
+            row.setAttribute('data-filtered-out', 'true');
+        }
     });
+    const table = document.querySelector('.clearance-table');
+    if (table && typeof table.refreshPagination === 'function') {
+        table.refreshPagination();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -86,5 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             avatarEl.textContent = initials;
         }
+    }
+
+    if (typeof window.setupTablePagination === 'function') {
+        window.setupTablePagination('.clearance-table', 5);
     }
 });
