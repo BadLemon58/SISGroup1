@@ -416,4 +416,58 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeModal(modal) {
         modal.classList.remove('active');
     }
+
+    // --- Admin Profile Dropdown & Modal Logic ---
+    const profileDropdownBtn = document.getElementById('profileDropdownBtn');
+    const profileDropdownMenu = document.getElementById('profileDropdownMenu');
+    
+    if (profileDropdownBtn && profileDropdownMenu) {
+        profileDropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdownMenu.classList.toggle('active');
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!profileDropdownBtn.contains(e.target) && !profileDropdownMenu.contains(e.target)) {
+                profileDropdownMenu.classList.remove('active');
+            }
+        });
+    }
+
+    const editAdminProfileBtn = document.getElementById('editAdminProfileBtn');
+    const adminProfileModal = document.getElementById('adminProfileModal');
+    const adminProfileForm = document.getElementById('adminProfileForm');
+    const adminNameDisplay = document.getElementById('adminNameDisplay');
+    const adminAvatarImg = document.getElementById('adminAvatarImg');
+
+    if (editAdminProfileBtn && adminProfileModal) {
+        editAdminProfileBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            profileDropdownMenu.classList.remove('active');
+            adminProfileModal.classList.add('active');
+        });
+    }
+
+    if (adminProfileForm) {
+        adminProfileForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newName = document.getElementById('adminFullName').value.trim();
+            if (newName) {
+                adminNameDisplay.textContent = newName;
+                // Generate a new avatar with the initials of the new name
+                const encodedName = encodeURIComponent(newName);
+                adminAvatarImg.src = `https://ui-avatars.com/api/?name=${encodedName}&background=6366f1&color=fff`;
+            }
+            closeModal(adminProfileModal);
+            
+            // Show toast
+            const toast = document.getElementById('toast');
+            if (toast) {
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 3000);
+            }
+        });
+    }
 });
