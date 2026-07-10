@@ -58,10 +58,17 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('studentProfile', JSON.stringify(updatedProfile));
 
         // Show mock toast/alert for success
-        alert('Profile saved successfully!');
-        
-        // Navigate back to MainDash (or previous page)
-        window.location.href = '../MainDash/Main.html';
+        const toast = document.getElementById('toast');
+        if (toast) {
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                window.location.href = '../MainDash/Main.html';
+            }, 1500);
+        } else {
+            alert('Profile saved successfully!');
+            window.location.href = '../MainDash/Main.html';
+        }
     });
 
     // Cancel button

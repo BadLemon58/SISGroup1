@@ -2,6 +2,12 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeSchedulePage();
+    
+    // Export to CSV functionality
+    const exportCsvBtn = document.getElementById('exportCsvBtn');
+    if (exportCsvBtn) {
+        exportCsvBtn.addEventListener('click', exportTableToCSV);
+    }
 });
 
 function initializeSchedulePage() {
@@ -58,6 +64,49 @@ function sortTable(columnIndex) {
     table.setAttribute('data-sort-order', isAscending ? 'desc' : 'asc');
 }
 
+function exportTableToCSV() {
+    const table = document.querySelector('.schedule-table');
+    if (!table) return;
+    
+    let csvContent = "";
+    
+    // Get headers
+    const headers = Array.from(table.querySelectorAll('thead th')).map(th => `"${th.textContent.trim()}"`);
+    csvContent += headers.join(",") + "\r\n";
+    
+    // Get rows
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    rows.forEach(row => {
+        if (row.classList.contains('table-empty-state')) return;
+        const rowData = Array.from(row.querySelectorAll('td')).map(td => {
+            // Replace inner newlines with spaces and escape quotes
+            let text = td.innerText.replace(/\n/g, ' ').replace(/"/g, '""');
+            return `"${text}"`;
+        });
+        csvContent += rowData.join(",") + "\r\n";
+    });
+    
+    // Create a blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "schedule_export.csv");
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Show toast
+    const toast = document.getElementById('toast');
+    if (toast) {
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+            toast.classList.add('hidden');
+        }, 3000);
+    }
+}
+
 // Search/Filter functionality
 function filterSchedule(searchTerm) {
     const rows = document.querySelectorAll('.schedule-table tbody tr');
@@ -102,9 +151,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             avatarEl.textContent = initials;
         }
-    }
-
-    if (typeof window.setupTablePagination === 'function') {
-        window.setupTablePagination('.schedule-table', 5);
     }
 });

@@ -174,8 +174,7 @@
 
 @media screen and (max-width: 768px) {
     .clearance-table {
-        display: block;
-        overflow-x: auto;
+        white-space: nowrap;
     }
 
     .clearance-table thead th,

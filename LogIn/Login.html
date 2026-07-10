@@ -15,6 +15,12 @@
 </head>
 
 <body>
+    <!-- Toast Notification (Visibility of System Status) -->
+    <div id="toast" class="toast hidden" aria-live="polite">
+        <span class="toast-icon">✓</span>
+        <span id="toastMessage">Login Successful! Redirecting...</span>
+    </div>
+
     <main class="login-container">
         <!-- Left Column: Branding -->
         <section class="branding-section">
@@ -49,7 +55,7 @@
 
                     <form id="loginForm" class="login-form">
                         <div class="input-wrapper">
-                            <label for="username" class="sr-only">Username or Email</label>
+                            <label for="username" class="sr-only">Enter your username or email address</label>
                             <div class="input-group">
                                 <span class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -59,13 +65,16 @@
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
                                 </span>
-                                <input type="text" id="username" name="username" placeholder="Username or Email">
+                                <input type="text" id="username" name="username" placeholder="Enter your username or email address">
+                                <button type="button" class="clear-btn hidden" aria-label="Clear username">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
                             </div>
-                            <div class="error-message" id="usernameError">Username is required</div>
+                            <div class="error-message" id="usernameError" aria-live="polite">Please provide your username to continue.</div>
                         </div>
 
                         <div class="input-wrapper">
-                            <label for="password" class="sr-only">Password</label>
+                            <label for="password" class="sr-only">Enter your password</label>
                             <div class="input-group">
                                 <span class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -75,7 +84,10 @@
                                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                     </svg>
                                 </span>
-                                <input type="password" id="password" name="password" placeholder="Password">
+                                <input type="password" id="password" name="password" placeholder="Enter your password">
+                                <button type="button" class="clear-btn hidden" aria-label="Clear password" style="right: 3rem;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
                                 <button type="button" class="toggle-password" id="togglePassword"
                                     aria-label="Toggle password visibility">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -86,7 +98,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="error-message" id="passwordError">Password is required</div>
+                            <div class="error-message" id="passwordError" aria-live="polite">Please provide your password to continue.</div>
                         </div>
 
                         <div class="remember-me">
@@ -96,7 +108,7 @@
 
                         <div class="form-actions">
                             <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot Password?</a>
-                            <button type="submit" class="submit-btn" id="loginBtn">
+                            <button type="submit" class="btn btn-primary submit-btn" id="loginBtn" disabled>
                                 <span class="btn-text">Log in</span>
                                 <span class="spinner" id="loginSpinner" style="display: none;"></span>
                             </button>
@@ -106,6 +118,28 @@
             </div>
         </section>
     </main>
+
+    <!-- Forgot Password Modal (User Control and Freedom) -->
+    <div id="forgotPasswordModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button type="button" class="close-modal" id="closeModalBtn" aria-label="Close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h2 id="modalTitle">Forgot Password</h2>
+            <p>Please enter your email address to receive password reset instructions.</p>
+            <div class="input-wrapper">
+                <div class="input-group">
+                    <input type="email" id="resetEmail" placeholder="Enter your email address">
+                </div>
+                <div class="error-message" id="resetError" aria-live="polite">Please enter a valid email.</div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+                <button type="button" class="btn btn-primary" id="submitResetBtn">Send Instructions</button>
+            </div>
+        </div>
+    </div>
 
     <script src="Login.js"></script>
 </body>

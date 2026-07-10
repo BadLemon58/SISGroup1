@@ -19,6 +19,12 @@
 </head>
 
 <body>
+    <!-- Toast Notification (Visibility of System Status) -->
+    <div id="toast" class="toast hidden" aria-live="polite">
+        <span class="toast-icon">✓</span>
+        <span id="toastMessage">Export Successful! Downloading CSV...</span>
+    </div>
+
     <div class="dashboard-layout">
         <!-- Reuse the same sidebar markup for consistency -->
         <aside class="sidebar">
@@ -94,8 +100,12 @@
         </aside>
 
         <main class="feed-content">
-            <header class="feed-header">
+            <header class="feed-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <h2>Grades & Subjects</h2>
+                <button id="exportCsvBtn" style="padding: 0.5rem 1rem; background-color: var(--primary-color, #004080); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Export to CSV
+                </button>
             </header>
 
             <div class="feed-scrollable">
@@ -106,15 +116,13 @@
                                 <table class="grades-table">
                                 <thead>
                                     <tr>
-                                        <th class="sticky-col">Code</th>
-                                        <th class="sticky-col">Descriptive Title</th>
+                                        <th>Code</th>
+                                        <th>Descriptive Title</th>
                                         <th>Units</th>
                                         <th>Schedule</th>
                                         <th>Instructor</th>
                                         <th>Program</th>
                                         <th>Section</th>
-                                        <th>Average</th>
-                                        <th>Equivalent</th>
                                         <th>Average</th>
                                         <th>Equivalent</th>
                                     </tr>
@@ -128,13 +136,11 @@
                                             Mon (09:30 AM - 12:00 PM) - Lec<br>
                                             Wed (09:30 AM - 12:00 PM) - Lab
                                         </td>
-                                        <td>Vilar, John Louie D</td>
+                                        <td>Potter, Harry J</td>
                                         <td>BSIT</td>
                                         <td class="center">BSIT 3B</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td class="center">92</td>
+                                        <td class="center">1.50</td>
                                     </tr>
                                     <tr>
                                         <td>IT D 311</td>
@@ -144,13 +150,11 @@
                                             Mon (05:00 PM - 07:30 PM) - Lec<br>
                                             Wed (05:00 PM - 07:30 PM) - Lab
                                         </td>
-                                        <td>Bura-ay, Shareyna T</td>
+                                        <td>Granger, Hermione E</td>
                                         <td>BSIT</td>
                                         <td class="center">BSIT 3B</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td class="center">88</td>
+                                        <td class="center">1.75</td>
                                     </tr>
                                     <tr>
                                         <td>IS 301</td>
@@ -160,13 +164,11 @@
                                             Tue (05:30 PM - 07:00 PM) - Lec<br>
                                             Thu (05:30 PM - 07:00 PM) - Lec
                                         </td>
-                                        <td>CELESTINO, AURA MAE M</td>
+                                        <td>Dumbledore, Albus P</td>
                                         <td>BSIS</td>
                                         <td class="center">BSIS 3A</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td class="center">95</td>
+                                        <td class="center">1.25</td>
                                     </tr>
                                     <tr>
                                         <td>IS D 314</td>
@@ -176,13 +178,11 @@
                                             Tue (01:00 PM - 02:30 PM) - Lec<br>
                                             Thu (01:00 PM - 02:30 PM) - Lec
                                         </td>
-                                        <td>Florague, Angelo P</td>
+                                        <td>Weasley, Ronald B</td>
                                         <td>BSIS</td>
                                         <td class="center">BSIS 3A</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td class="center">85</td>
+                                        <td class="center">2.00</td>
                                     </tr>
                                     <tr>
                                         <td>IT E 303</td>
@@ -192,13 +192,11 @@
                                             Fri (09:30 AM - 12:00 PM) - Lec<br>
                                             Sat (09:30 AM - 12:00 PM) - Lab
                                         </td>
-                                        <td>Divina, Harlene Mae B</td>
+                                        <td>Lovegood, Luna</td>
                                         <td>BSIT</td>
                                         <td class="center">BSIT 3B</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td class="center">90</td>
+                                        <td class="center">1.50</td>
                                     </tr>
                                     <tr>
                                         <td>IT 301</td>
@@ -208,13 +206,11 @@
                                             Tue (09:30 AM - 12:00 PM) - Lec<br>
                                             Thu (09:30 AM - 12:00 PM) - Lab
                                         </td>
-                                        <td>Gadingan, Hazel Joy B</td>
+                                        <td>Longbottom, Neville</td>
                                         <td>BSIT</td>
                                         <td class="center">BSIT 3B</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td class="center">93</td>
+                                        <td class="center">1.25</td>
                                     </tr>
                                     <tr>
                                         <td>IT 305</td>
@@ -224,13 +220,11 @@
                                             Tue (02:30 PM - 05:00 PM) - Lec<br>
                                             Thu (02:30 PM - 05:00 PM) - Lab
                                         </td>
-                                        <td>Bura-ay, Shareyna T</td>
+                                        <td>Granger, Hermione E</td>
                                         <td>BSIT</td>
                                         <td class="center">BSIT 3B</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td class="center">89</td>
+                                        <td class="center">1.75</td>
                                     </tr>
                                 </tbody>
                             </table>

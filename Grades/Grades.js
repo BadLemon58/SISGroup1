@@ -41,11 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         rows.forEach(tr => {
             const cells = tr.querySelectorAll('td');
-            if (!cells || cells.length < 11) return;
-            // prefer the first units column (index 2), fallback to index 6
-            let units = parseFloat(cells[2].textContent) || parseFloat(cells[6].textContent) || 0;
-            // use the second average (index 10) if present, else first (index 😎
-            let avg = parseFloat(cells[10].textContent) || parseFloat(cells[8].textContent) || 0;
+            if (!cells || cells.length < 9) return;
+            // prefer the first units column (index 2)
+            let units = parseFloat(cells[2].textContent) || 0;
+            // use the average column (index 7)
+            let avg = parseFloat(cells[7].textContent) || 0;
             if (units > 0 && !isNaN(avg)) {
                 totalUnits += units;
                 sumWeighted += avg * units;
@@ -82,23 +82,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
-    // Add an Export CSV button next to the page title for convenience
-    (function addExportButton() {
-        const header = document.querySelector('.feed-header h2');
-        if (!header) return;
-        const btn = document.createElement('button');
-        btn.textContent = 'Export CSV';
-        btn.className = 'btn-primary';
-        btn.style.marginLeft = '12px';
-        header.appendChild(btn);
+    // Bind the Export CSV button
+    (function setupExportButton() {
+        const btn = document.getElementById('exportCsvBtn');
+        if (!btn) return;
 
         btn.addEventListener('click', () => {
             const rows = document.querySelectorAll('.grades-table tbody tr');
             const csv = [
-                ['Code', 'Descriptive Title', 'Units', 'Schedule', 'Instructor', 'Program', 'Section', 'Average1', 'Equivalent1', 'Average2', 'Equivalent2'].join(',')
+                ['Code', 'Descriptive Title', 'Units', 'Schedule', 'Instructor', 'Program', 'Section', 'Average', 'Equivalent'].join(',')
             ];
             rows.forEach(tr => {
-                const cols = Array.from(tr.querySelectorAll('td')).map(td => '"' + td.textContent.replace(/"/g, '""').trim() + '"');
+                const cols = Array.from(tr.querySelectorAll('td')).map(td => '"' + td.textContent.replace(/\n/g, ' ').replace(/"/g, '""').trim() + '"');
                 csv.push(cols.join(','));
             });
 
@@ -106,11 +101,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'grades.csv';
+            a.download = 'grades_export.csv';
             document.body.appendChild(a);
             a.click();
             a.remove();
             URL.revokeObjectURL(url);
+            
+            // Show toast
+            const toast = document.getElementById('toast');
+            if (toast) {
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 3000);
+            }
         });
     })();
 
@@ -138,9 +142,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             avatarEl.textContent = initials;
         }
-    }
-
-    if (typeof window.setupTablePagination === 'function') {
-        window.setupTablePagination('.grades-table', 5);
     }
 });
